@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "name": "iPhone 6"
+  },
+  {
+    "id": 2,
+    "name": "iPhone 7"
+  },
+  {
+    "id": 3,
+    "name": "iPhone 8"
+  },
+  {
+    "id": 4,
+    "name": "iPhone X"
+  },
+  {
+    "id": 5,
+    "name": "iPhone 11"
+  },
+  {
+    "id": 6,
+    "name": "iPhone 11 Pro"
+  },
+  {
+    "id": 7,
+    "name": "iPhone 11 Pro Max"
+  },
+  {
+    "id": 8,
+    "name": "iPhone 12"
+  },
+  {
+    "id": 9,
+    "name": "iPhone 12 Pro"
+  },
+  {
+    "id": 10,
+    "name": "iPhone 12 Pro Max"
+  },
+  {
+    "id": 11,
+    "name": "iPad"
+  },
+  {
+    "id": 12,
+    "name": "iPad Air"
+  },
+  {
+    "id": 13,
+    "name": "iPad Pro"
+  },
+  {
+    "id": 14,
+    "name": "macBook"
+  },
+  {
+    "id": 15,
+    "name": "macBook Air"
+  },
+  {
+    "id": 16,
+    "name": "macBook Pro"
+  }
+]
