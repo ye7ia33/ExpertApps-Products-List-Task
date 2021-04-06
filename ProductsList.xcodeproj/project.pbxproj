@@ -114,6 +114,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		82127C79261C6993001B3BA1 /* Source and Assets */ = {
+			isa = PBXGroup;
+			children = (
+				A8F47E1C261B28D20041D9AB /* AppDelegate.swift */,
+				A8F47E1E261B28D20041D9AB /* SceneDelegate.swift */,
+				A8F47E22261B28D20041D9AB /* Main.storyboard */,
+				A8F47E28261B28D30041D9AB /* Assets.xcassets */,
+				A8F47E2A261B28D30041D9AB /* LaunchScreen.storyboard */,
+				A8F47E25261B28D20041D9AB /* ProductsList.xcdatamodeld */,
+			);
+			path = "Source and Assets";
+			sourceTree = "<group>";
+		};
 		A8F47E10261B28D20041D9AB = {
 			isa = PBXGroup;
 			children = (
@@ -141,13 +154,8 @@
 				A8F47EC0261B47050041D9AB /* Utility */,
 				A8F47E52261B28DC0041D9AB /* Repositories */,
 				A8F47E63261B294D0041D9AB /* Modules */,
-				A8F47E1C261B28D20041D9AB /* AppDelegate.swift */,
-				A8F47E1E261B28D20041D9AB /* SceneDelegate.swift */,
-				A8F47E22261B28D20041D9AB /* Main.storyboard */,
-				A8F47E28261B28D30041D9AB /* Assets.xcassets */,
-				A8F47E2A261B28D30041D9AB /* LaunchScreen.storyboard */,
+				82127C79261C6993001B3BA1 /* Source and Assets */,
 				A8F47E2D261B28D30041D9AB /* Info.plist */,
-				A8F47E25261B28D20041D9AB /* ProductsList.xcdatamodeld */,
 			);
 			path = ProductsList;
 			sourceTree = "<group>";
