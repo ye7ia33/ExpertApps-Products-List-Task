@@ -24,6 +24,7 @@ class CartViewController: UIViewController {
         self.viewModel.completionHandlerWithMassage = {
             msg in
             self.showToast(message: msg)
+            self.cartItemTableView.reloadData()
         }
     }
     
@@ -47,7 +48,7 @@ extension CartViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            self.viewModel.deleteProductFromDB(product: self.viewModel.getProductByIndex(indexPath.item))
+            self.viewModel.deleteProduct(product: self.viewModel.getProductByIndex(indexPath.item))
         }
     }
 }

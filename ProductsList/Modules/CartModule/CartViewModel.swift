@@ -11,8 +11,11 @@ final class CartViewModel: ViewModel, ProductTableViewDataDelegate {
     private (set) var productsArrayList: [Product]?
     
     func getProducts() {
-        self.productsArrayList = CartItemsServices.shared.get()
-        (self.productsArrayList?.count ?? 0) > 1 ? self.completionHandler() : self.completionHandlerWithMassage("Cart is empty.")
+        CartItemsServices.shared.get(result: {
+            products in
+            self.productsArrayList = products
+            (self.productsArrayList?.count ?? 0) > 1 ? self.completionHandler() : self.completionHandlerWithMassage("Cart is empty.")
+        })
     }
     
     func numberOfProducts() -> Int {
@@ -23,10 +26,14 @@ final class CartViewModel: ViewModel, ProductTableViewDataDelegate {
         return self.productsArrayList?[index] ?? Product()
     }
     
-    func deleteProductFromDB(product: Product) {
+    func deleteProduct(product: Product) {
         if CartItemsServices.shared.delete(product) {
-            self.productsArrayList = CartItemsServices.shared.get()
-            self.completionHandler()
+            self.getProducts()
+            if let pName = product.name {
+                self.completionHandlerWithMassage("\(pName) removed from cart")
+            } else  {
+                self.completionHandler()
+            }
         } else {
             self.completionHandlerWithMassage("Fail.")
         }

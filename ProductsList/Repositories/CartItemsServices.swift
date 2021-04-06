@@ -9,44 +9,39 @@ import SwiftyJSON
 
 struct CartItemsServices {
     static var shared = CartItemsServices()
-    private var cartItemList: [Product]?
     
-    private init() {
-        if cartItemList == nil {
-            self.cartItemList = self.getProductsFromLocalDB()
-        }
-    }
+    private init() { }
     
-    mutating func get() -> [Product] {
-        if let prodList = getProductsFromLocalDB() {
-            self.cartItemList = prodList
+    mutating func get(result: @escaping(_ result : [Product]?) -> Void ){
+        if let prodList = self.getProductsFromLocalDB() {
+            result(prodList)
+            return
         }
-        return self.cartItemList ?? []
+       result(nil)
     }
     
     private mutating func getProductsFromLocalDB() -> [Product]? {
         guard let productsJson = CoreDataHandler.shared.featchData(entityName: Configure.shared.productsEntityName) else {
             return []
         }
-        self.cartItemList = [Product]()
+        var cartItemList = [Product]()
         for element in productsJson {
-            guard let id = element["id"] as? Int,
-                  let name = element["name"] as? String,
-                  let nsDate = element["date"] as? NSDate
-            else { continue }
-            let prod = Product(id: id, name: name)
-            
-            let prodDate = nsDate.toDate()
-            let nextDaysChacker = prodDate.addingTimeInterval(Configure.shared.productScopeAtCart)
-            dLog("prodDate \(prodDate)")
-            dLog("nextDaysChacker \(nextDaysChacker)")
-            if nextDaysChacker >= Date() {
-                self.cartItemList?.append(prod)
+            let prod = Product(dic: element)
+            if let nsDate = element["date"] as? NSDate, self.checkItemDate(nsDate) {
+                cartItemList.append(prod)
             } else {
-               _ = self.delete(prod)
+                _ = self.delete(prod)
             }
         }
         return cartItemList
+    }
+    
+    private func checkItemDate (_ date: NSDate) -> Bool {
+        let prodDate = date.toDate()
+        let nextDateChacker = prodDate.addingTimeInterval(Configure.shared.productScopeAtCart)
+        dLog("prodDate \(prodDate)")
+        dLog("nextDateChacker \(nextDateChacker)")
+        return nextDateChacker >= Date()
     }
     
     func add(_ product: Product) -> Bool {

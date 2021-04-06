@@ -8,24 +8,26 @@
 import Foundation
 struct ProductsServices {
     
-    func get(result:@escaping(_ result : [Product]?, _ errorMessage : Error?)->()) {
-        if let productsData = readLocalProducts(forName: "dummyProductsList"),
-           let productsList = CodableHandler.decode([Product].self, from: productsData) as? [Product] {
-            result(productsList, nil)
-        }        
+    func get(result:@escaping(_ result : [Product]?, _ error : Error?)->()) {
+        let productsData = readLocalProducts(forName: Configure.shared.jsonProuctsFileName)
+        if let products = productsData.0, let productsList = CodableHandler.decode([Product].self, from: products) as? [Product] {
+            result(productsList, productsData.1)
+            return
+        }
+        result(nil, productsData.1)
     }
 
-    private func readLocalProducts(forName name: String) -> Data? {
-
+    private func readLocalProducts(forName name: String) -> (Data?, Error?) {
         do {
             if let bundlePath = Bundle.main.path(forResource: name, ofType: "json"),
-                let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) {
-                return jsonData
+               let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) {
+                return (jsonData, nil)
             }
         } catch {
             print(error.localizedDescription)
+            return (nil, error)
         }
         
-        return nil
+        return (nil, nil)
     }
 }
